@@ -10,6 +10,7 @@
 **/.vagrant/
 **/DerivedData/
 Icon?
+*.json
 **/Pods/
 **/.symlinks/
 profile
@@ -26,7 +27,6 @@ Flutter/flutter_assets/
 Flutter/flutter_export_environment.sh
 ServiceDefinitions.json
 Runner/GeneratedPluginRegistrant.*
-android/app/google-services.json
 
 # Exceptions to above rules.
 !default.mode1v3
