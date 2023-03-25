@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
@@ -92,7 +93,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 20,
                   ),
                   Text(
-                    "The Social",
+                    "KIIT Social",
                     style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.w600,
@@ -112,7 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 30,
                   ),
                   LoginFill(
-                    hinttext: 'Enter your E-Mail',
+                    hinttext: 'Enter your KIIT Mail',
                     obsecuretext: false,
                     controller: emailcontroller,
                   ),

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:login_page/pages/login_pages/auth_page.dart';
@@ -19,6 +20,8 @@ class LOginPage extends StatefulWidget {
 }
 
 class _LOginPageState extends State<LOginPage> {
+  Future hidestatus() => SystemChrome.setEnabledSystemUIOverlays([]);
+
   final emailcontroller = TextEditingController();
 
   final passwordcontroller = TextEditingController();
@@ -76,9 +79,9 @@ class _LOginPageState extends State<LOginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 209, 238, 224),
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
+      body: Center(
+        child: SingleChildScrollView(
+          child: SafeArea(
             child: Container(
               padding: EdgeInsets.only(top: 50),
               child: Column(
@@ -93,7 +96,7 @@ class _LOginPageState extends State<LOginPage> {
                     height: 20,
                   ),
                   Text(
-                    "The Social",
+                    "KIIT Social",
                     style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.w600,
@@ -103,7 +106,7 @@ class _LOginPageState extends State<LOginPage> {
                     height: 40,
                   ),
                   Text(
-                    "Welcome Back",
+                    "Welcome Back KIITian",
                     style: TextStyle(
                         color: Color.fromARGB(255, 73, 77, 74),
                         fontSize: 18,
@@ -113,7 +116,7 @@ class _LOginPageState extends State<LOginPage> {
                     height: 30,
                   ),
                   LoginFill(
-                    hinttext: 'Enter your E-Mail',
+                    hinttext: 'Enter your KIIT Mail',
                     obsecuretext: false,
                     controller: emailcontroller,
                   ),
