@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Login Page',
+        title: 'KIIT Social',
         theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.green,
             visualDensity: VisualDensity.adaptivePlatformDensity),
         themeMode: ThemeMode.system,
         home: AuthPage());
