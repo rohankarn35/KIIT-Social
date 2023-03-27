@@ -1,16 +1,20 @@
-# login_page
+<h1 align="center" id="title">KIIT SOCIAL</h1>
 
-A new Flutter project.
+  
+  
+<h2>🧐 Features</h2>
 
-## Getting Started
+Here're some of the project's best features:
 
-This project is a starting point for a Flutter application.
+*   Login page where only KIIT University student can sign in
+*   Login and register using google
 
-A few resources to get you started if this is your first Flutter project:
+  
+  
+<h2>💻 Built with</h2>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Technologies used in the project:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+*   Firebase
+*   Flutter
+*   Google authentication
