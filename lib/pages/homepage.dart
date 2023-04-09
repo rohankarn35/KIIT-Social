@@ -4,34 +4,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:login_page/pages/login_pages/login_or_register.dart';
 
 class Homepage extends StatelessWidget {
   Homepage({super.key});
   final user = FirebaseAuth.instance.currentUser;
+final GoogleSignIn googleSignIn = GoogleSignIn();
+//   static Future<void> signOut({required BuildContext context}) async {
+//     final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  static Future<void> signOut({required BuildContext context}) async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-
-    try {
-      if (!kIsWeb) {
-        await googleSignIn.signOut();
-      }
-      await FirebaseAuth.instance.signOut();
-    } catch (e) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-                iconColor: Colors.white,
-                backgroundColor: Colors.red,
-                icon: Icon(Icons.no_accounts),
-                title: Text(
-                  'Wrong Email',
-                  style: TextStyle(color: Colors.white),
-                ));
-          });
-    }
-  }
+//     try {
+//       if (!kIsWeb) {
+//         await googleSignIn.signOut();
+//       }
+//       await FirebaseAuth.instance.signOut();
+//     } on FirebaseAuthException catch (e) {
+//       showDialog(
+//           context: context,
+//           builder: (context) {
+//             return AlertDialog(
+//                 iconColor: Colors.white,
+//                 backgroundColor: Colors.red,
+//                 icon: Icon(Icons.no_accounts),
+//                 title: Text(
+//                   e.code,
+//                   style: TextStyle(color: Colors.white),
+//                 ));
+//           });
+//     }
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +42,10 @@ class Homepage extends StatelessWidget {
         backgroundColor: Colors.green,
         actions: [
           IconButton(
-              onPressed: () {
-                signOut(context: context);
+              onPressed: ()async {
+                // signOut(context: context);
+                 await googleSignIn.signOut().
+                 then((value)async =>await FirebaseAuth.instance.signOut().  then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginOrRegister(),))));
               },
               icon: Icon(Icons.logout_rounded))
         ],

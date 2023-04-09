@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:login_page/pages/Emailverification.dart';
+import 'package:login_page/pages/homepage.dart';
+import 'package:login_page/pages/login_pages/ErrorField.dart';
 
 import '../../component/login_components/sign_button.dart';
 import '../../services/auth_service.dart';
@@ -19,6 +23,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final emailcontroller = TextEditingController();
+  final GoogleSignIn googleSignIn  = GoogleSignIn();
 
   final passwordcontroller = TextEditingController();
   final confirmpasswordcontroller = TextEditingController();
@@ -138,7 +143,22 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   SignButton(
                     onTap: () {
-                      singUserUp();
+                      if (emailcontroller.text.endsWith('@kiit.ac.in')) {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Emailverification()));
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                  iconColor: Colors.white,
+                                  backgroundColor: Colors.red,
+                                  icon: Icon(Icons.error_outline_outlined),
+                                  title: Text(
+                                    "Please Sign Up with your KIIT ID",
+                                    style: TextStyle(color: Colors.white),
+                                  ));
+                            });
+                      }
                     },
                     buttontext: 'Sign Up',
                   ),
@@ -179,7 +199,17 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(8)),
                     // color: Colors.white,
                     child: GestureDetector(
-                      onTap: () => AuthService().signInWithGoogle(),
+                      onTap: () async{
+                      var res = await  AuthService().signInWithGoogle();
+                      if(res){
+                        // print("User is valid");
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Homepage(),));
+                      }else{
+                        // print("User is invalid");
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ErrorMessageField(),));
+                        // await googleSignIn.signOut();
+                      }
+                      },
                       child: Image.asset(
                         'assets/images/google.png',
                         height: 30,

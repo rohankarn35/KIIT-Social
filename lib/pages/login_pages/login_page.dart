@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:login_page/pages/homepage.dart';
+import 'package:login_page/pages/login_pages/ErrorField.dart';
 import 'package:login_page/pages/login_pages/auth_page.dart';
+import 'package:login_page/pages/login_pages/login_or_register.dart';
 import 'package:login_page/pages/login_pages/login_page_fill.dart';
 import 'package:login_page/component/login_components/sign_button.dart';
 import 'package:login_page/services/auth_service.dart';
@@ -21,6 +25,8 @@ class LOginPage extends StatefulWidget {
 
 class _LOginPageState extends State<LOginPage> {
   Future hidestatus() => SystemChrome.setEnabledSystemUIOverlays([]);
+
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   final emailcontroller = TextEditingController();
 
@@ -158,7 +164,28 @@ class _LOginPageState extends State<LOginPage> {
                   ),
                   SignButton(
                     onTap: () {
+                      if(emailcontroller.text.isNotEmpty && passwordcontroller.text.isNotEmpty){
                       singUserIn();
+                            
+                      }
+                      else{
+                        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                  iconColor: Colors.white,
+                  backgroundColor: Colors.red,
+                  icon: Icon(
+                    Icons.error_outline_outlined,
+                    size: 30,
+                  ),
+                  title: Text(
+                    'Email or Password not entered',
+                    style: TextStyle(color: Colors.white),
+                  ));
+            });
+                      }
+                     
                     },
                     buttontext: 'Sign In',
                   ),
@@ -199,7 +226,34 @@ class _LOginPageState extends State<LOginPage> {
                         borderRadius: BorderRadius.circular(8)),
                     // color: Colors.white,
                     child: GestureDetector(
-                      onTap: () => AuthService().signInWithGoogle(),
+                      onTap: () async{
+                        
+                //         if(await FirebaseAuth.instance.currentUser!=null){
+                //           {
+                //             if(await FirebaseAuth.instance.currentUser!.email!.contains("@kiit.ac.in")){
+                //           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Homepage(),));
+                //             }else{
+                //               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ErrorMessageField(),));
+                //                 // await googleSignIn.signOut().
+                // //  then((value)async =>await FirebaseAuth.instance.signOut().  then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => (),))));
+                //             }
+                //           }
+
+                //         }else{
+                //         AuthService().signInWithGoogle();
+                //         }
+
+
+                  var res = await  AuthService().signInWithGoogle();
+                      if(res){
+                        print("User is valid");
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Homepage(),));
+                      }else{
+                        print("User is invalid");
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ErrorMessageField(),));
+                        // await googleSignIn.signOut();
+                      }
+                      },
                       child: Image.asset(
                         'assets/images/google.png',
                         height: 30,
